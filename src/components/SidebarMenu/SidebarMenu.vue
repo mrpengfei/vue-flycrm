@@ -52,7 +52,7 @@ export default {
     props: ['parentId','allMenus'],
     data: function () {
         return {
-           menus:this.allMenus 
+           menus:this.allMenus || []
         };
     },
     methods: {
@@ -62,9 +62,6 @@ export default {
             });
         },
         getSubMenus(parentId) {
-            if(!this.menus){
-                return [];
-            }
             var result = this.menus.filter(function (value, index, array) {
                 return value.ParentId == parentId;
             });
@@ -74,9 +71,14 @@ export default {
     mounted: function () {
         if (this.parentId <= 0) {
             var vm = this;
-            setTimeout(function () {
-                vm.menus = MENUS;
-            }, 2000);
+            // setTimeout(function () {
+            //     vm.menus = MENUS;
+            // }, 2000);
+            $.get('/daishu/crm/api/employee/menu/list/1',function(data){
+                if(data && data.State){
+                    vm.menus = data.Result;
+                }
+            });
         }
     }
 }
