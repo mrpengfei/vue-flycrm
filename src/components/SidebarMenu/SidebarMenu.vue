@@ -3,7 +3,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li v-for="item in getSubMenus(parentId)" :class="{'treeview':parentId>0}">
             <a :href="item.Link">
-                <i class="fa fa-link"></i>
+                <!--<i class="fa fa-link"></i>-->
                 <span>{{item.MenuName}}</span>
                 <span v-if="hasSubMenu(item.MenuId)" class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
@@ -28,25 +28,6 @@
     </ul>
 </template>
 <script>
-const MENUS = [{
-    MenuId: 1,
-    MenuName: '首页',
-    ParentId: 0,
-    Link: '/'
-},
-{
-    MenuId: 2,
-    MenuName: '资源管理',
-    ParentId: 0,
-    Link: '#'
-},
-{
-    MenuId: 3,
-    MenuName: '我的资源',
-    ParentId: 2,
-    Link: '/resource/myresource'
-}
-];
 export default {
     name: 'SidebarMenu',
     props: ['parentId','allMenus'],
@@ -71,9 +52,6 @@ export default {
     mounted: function () {
         if (this.parentId <= 0) {
             var vm = this;
-            // setTimeout(function () {
-            //     vm.menus = MENUS;
-            // }, 2000);
             $.get('/daishu/crm/api/employee/menu/list/1',function(data){
                 if(data && data.State){
                     vm.menus = data.Result;
