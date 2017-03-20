@@ -200,7 +200,7 @@
           <!-- /.search form -->
 
           <!-- Sidebar Menu -->
-         <sidebar-menu isInit="true"></sidebar-menu>
+         <sidebar-menu parentId="0"></sidebar-menu>
           <!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->

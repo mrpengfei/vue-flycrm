@@ -27,7 +27,15 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/daishu/crm/api':{
+    target: 'http://211.157.135.187:30002/',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/daishu/crm/api': '/daishu/crm/api'
+    }
+  }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
