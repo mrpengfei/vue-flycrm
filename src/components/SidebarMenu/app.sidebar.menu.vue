@@ -1,5 +1,5 @@
 <template>
-    <ul :class="{'sidebar-menu':parentId<=0,'treeview-menu':parentId>0}" :aaa="parentId">
+    <ul :class="{'sidebar-menu':parentId<=0,'treeview-menu':parentId>0}">
         <!-- Optionally, you can add icons to the links -->
         <li v-for="item in getSubMenus(parentId)" :class="{'treeview':parentId>0}">
             <a :href="item.Link">
@@ -9,7 +9,7 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
-            <SidebarMenu :parentId="item.MenuId" :allMenus="menus" v-if="hasSubMenu(item.MenuId)"></SidebarMenu>
+            <app-sidebar-menu :parentId="item.MenuId" :allMenus="menus" v-if="hasSubMenu(item.MenuId)"></app-sidebar-menu>
         </li>
     
         <!--<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
@@ -29,8 +29,18 @@
 </template>
 <script>
 export default {
-    name: 'SidebarMenu',
-    props: ['parentId','allMenus'],
+    name: 'app-sidebar-menu',
+    props:{
+        parentId:{
+            type:Number,
+            default(){
+                return 0;
+            }
+        },
+        allMenus:{
+            type:Array,
+        },
+    },
     data: function () {
         return {
            menus:this.allMenus || []
@@ -49,16 +59,12 @@ export default {
             return result;
         }
     },
-    mounted: function () {
-        if (this.parentId <= 0) {
-            var vm = this;
-            $.get('/daishu/crm/api/employee/menu/list/1',function(data){
-                if(data && data.State){
-                    vm.menus = data.Result;
-                }
-            });
+    watch:{
+        allMenus:function(value,oldValue){
+            this.menus = value;
         }
-    }
+    },
+    
 }
 </script>
 <style>

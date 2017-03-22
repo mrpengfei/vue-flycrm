@@ -2,26 +2,20 @@
   <div id="app"
        class="wapper">
     <app-header></app-header>
-    <Sidebar></Sidebar>
+    <app-sidebar></app-sidebar>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
   import AppHeader from './components/Header/app.header';
+  import AppSidebar from './components/Sidebar/app.sidebar';
   export default {
     name: 'app',
     components: {
-      AppHeader
+      AppHeader,
+      AppSidebar
     },
-    mounted: function () {
-      var vm = this;
-      $.get('/daishu/crm/api/employee/menu/list/1', function (data) {
-        if (data && data.State) {
-          vm.menus = data.Result;
-        }
-      });
-    }
   }
 </script>
 
