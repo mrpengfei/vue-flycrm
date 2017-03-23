@@ -1,6 +1,5 @@
 <template>
-  <div id="app"
-       class="wapper">
+  <div id="app" class="wapper">
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <Footer></Footer>
@@ -11,11 +10,7 @@
   import AppHeader from './components/Header/app.header';
   import AppSidebar from './components/Sidebar/app.sidebar';
   export default {
-    name: 'app',
-    components: {
-      AppHeader,
-      AppSidebar
-    },
+    name: 'app'
   }
 </script>
 
