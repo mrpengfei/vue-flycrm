@@ -8,10 +8,8 @@
 </template>
 
 <script>
-  import AppHeader from './components/Header/app.header';
-  import AppSidebar from './components/Sidebar/app.sidebar';
   export default {
-    name: 'app'
+    name: 'app',
   }
 </script>
 

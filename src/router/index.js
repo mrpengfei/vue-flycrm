@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import RootEle from '../common/rootElement'
+
 import App from '../App'
 import AppHome from '../views/home/home'
 import AppLogin from '../views/login/login'
@@ -24,6 +26,7 @@ var router = new Router({
 });
 
 router.beforeEach((to,from,next)=>{
+  RootEle.onRouteChange(to);
   var isLogin = to.query.isLogin;
   if(to.name==='login' || isLogin){
     return next();
