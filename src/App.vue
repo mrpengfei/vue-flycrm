@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="wapper">
+  <div id="app"
+       class="wapper">
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <router-view></router-view>
@@ -8,9 +9,13 @@
 </template>
 
 <script>
-  export default {
-    name: 'app',
+import RootEle from './common/rootElement'
+export default {
+  name: 'app',
+  created: function () {
+    RootEle.onMainPage();
   }
+}
 </script>
 
 <style>

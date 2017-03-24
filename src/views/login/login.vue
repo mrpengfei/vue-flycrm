@@ -24,7 +24,8 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit"
+                                class="btn btn-primary btn-block btn-flat">Sign In</button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -34,29 +35,52 @@
     </div>
 </template>
 <script>
-import {USER_SIGNIN} from '../../store/common/mutationTypes'
- 
+import { USER_SIGNIN } from '../../store/common/mutationTypes'
+import loginService from '../../services/account.service'
+import User from '../../models/user.model'
+import RootEle from '../../common/rootElement'
+
 export default {
     name: 'app-login',
-    data(){
-        return{
-            user:{
-                staffId:'',
-                password:''
+    data() {
+        return {
+            user: {
+                staffId: '',
+                password: ''
             }
         };
     },
-    methods:{
-      login(){
-        if(!this.user.staffId || !this.user.password){
-            alert('登陆数据失败');
-            return;
+    created: function () {
+        RootEle.onLoginPage();
+    },
+    methods: {
+        login() {
+            if (!this.user.staffId || !this.user.password) {
+                alert('登陆数据失败');
+                return;
+            }
+            //调用登陆接口
+            loginService.login(new User(this.user.staffId, this.user.password))
+                .then((data) => {
+                    if (data.State) {
+                        var userInfo = data.Result;
+                        //存储用户信息
+                        loginService.saveLoginUser(userInfo);
+                        //改变状态
+                        this.$store.dispatch(USER_SIGNIN,{
+                            user: userInfo
+                        });
+                        this.$router.push("home");
+                        return;
+                    }
+                    alert('登陆失败');
+                }, function (reason) { });
         }
-          this.$store.dispatch({
-            type:USER_SIGNIN,
-            user:this.user
-          })
-      }  
+    },
+    computed: {
+        user: function () {
+            return this.$store.state.user;
+        }
     },
 }
 </script>

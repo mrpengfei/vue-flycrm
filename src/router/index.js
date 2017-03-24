@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import RootEle from '../common/rootElement'
+import store from '../store/'
 
 import App from '../App'
 import AppHome from '../views/home/home'
@@ -13,26 +14,24 @@ var router = new Router({
     {
       path: '/',
       component: App,
-      children:[
-        {path:'/',component:AppHome,name:'home',alias:'/home'},
+      children: [
+        { path: '/', component: AppHome, name: 'home', alias: '/home' },
       ],
     },
     {
-      path:'/login',
-      name:'login',
-      component:AppLogin
+      path: '/login',
+      name: 'login',
+      component: AppLogin
     }
   ]
 });
 
-router.beforeEach((to,from,next)=>{
-  RootEle.onRouteChange(to);
-  var isLogin = to.query.isLogin;
-  if(to.name==='login' || isLogin){
+router.beforeEach((to, from, next) => {
+  var isLogin = store.state.User.user && store.state.User.user.EmployeeId > 0;
+  if (to.name === 'login' || isLogin) {
     return next();
   }
   next('login')
-  //next('login');
 });
 
 

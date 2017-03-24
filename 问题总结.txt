@@ -1,0 +1,1 @@
+1、jquery ajax 传递 json 数据：JSON.stringify

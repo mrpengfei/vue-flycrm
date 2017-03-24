@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/daishu/crm/api':{
-    target: 'http://211.157.135.187:30002/',
+    target: 'http://211.157.135.187:30002',
     changeOrigin: true,
     pathRewrite: {
       '^/daishu/crm/api': '/daishu/crm/api'
