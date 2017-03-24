@@ -1,5 +1,5 @@
 export default {
-    canConsoleLog: true,
+    canConsoleLog: false,
     log(obj) {
         if (this.canConsoleLog) {
             console.log(obj);
