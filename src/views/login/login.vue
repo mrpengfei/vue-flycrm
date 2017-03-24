@@ -39,6 +39,7 @@ import { USER_SIGNIN } from '../../store/common/mutationTypes'
 import loginService from '../../services/account.service'
 import User from '../../models/user.model'
 import RootEle from '../../common/rootElement'
+import logHelper from '../../common/logHelper'
 
 export default {
     name: 'app-login',
@@ -62,10 +63,10 @@ export default {
             //调用登陆接口
             loginService.login(new User(this.user.staffId, this.user.password))
                 .then((data) => {
+                    logHelper.dir(data);
                     if (data.State) {
                         var userInfo = data.Result;
-                        //存储用户信息
-                        loginService.saveLoginUser(userInfo);
+                        
                         //改变状态
                         this.$store.dispatch(USER_SIGNIN,{
                             user: userInfo

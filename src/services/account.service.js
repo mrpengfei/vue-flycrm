@@ -37,4 +37,5 @@ export default{
     saveLoginUser(user){
          sessionStorage.setItem('user',JSON.stringify(user));
     }
+
 }

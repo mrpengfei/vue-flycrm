@@ -43,9 +43,9 @@
                                                      alt="User Image">
                                             </div>
                                             <h4>
-                            Support Team
-                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                          </h4>
+                                Support Team
+                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                              </h4>
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
@@ -58,9 +58,9 @@
                                                      alt="User Image">
                                             </div>
                                             <h4>
-                            AdminLTE Design Team
-                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                          </h4>
+                                AdminLTE Design Team
+                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                              </h4>
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
@@ -72,9 +72,9 @@
                                                      alt="User Image">
                                             </div>
                                             <h4>
-                            Developers
-                            <small><i class="fa fa-clock-o"></i> Today</small>
-                          </h4>
+                                Developers
+                                <small><i class="fa fa-clock-o"></i> Today</small>
+                              </h4>
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
@@ -86,9 +86,9 @@
                                                      alt="User Image">
                                             </div>
                                             <h4>
-                            Sales Department
-                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                          </h4>
+                                Sales Department
+                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                              </h4>
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
@@ -100,9 +100,9 @@
                                                      alt="User Image">
                                             </div>
                                             <h4>
-                            Reviewers
-                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                          </h4>
+                                Reviewers
+                                <small><i class="fa fa-clock-o"></i> 2 days</small>
+                              </h4>
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
                                     </li>
@@ -171,9 +171,9 @@
                                         <!-- Task item -->
                                         <a href="#">
                                             <h3>
-                            Design some buttons
-                            <small class="pull-right">20%</small>
-                          </h3>
+                                Design some buttons
+                                <small class="pull-right">20%</small>
+                              </h3>
                                             <div class="progress xs">
                                                 <div class="progress-bar progress-bar-aqua"
                                                      style="width: 20%"
@@ -191,9 +191,9 @@
                                         <!-- Task item -->
                                         <a href="#">
                                             <h3>
-                            Create a nice theme
-                            <small class="pull-right">40%</small>
-                          </h3>
+                                Create a nice theme
+                                <small class="pull-right">40%</small>
+                              </h3>
                                             <div class="progress xs">
                                                 <div class="progress-bar progress-bar-green"
                                                      style="width: 40%"
@@ -211,9 +211,9 @@
                                         <!-- Task item -->
                                         <a href="#">
                                             <h3>
-                            Some task I need to do
-                            <small class="pull-right">60%</small>
-                          </h3>
+                                Some task I need to do
+                                <small class="pull-right">60%</small>
+                              </h3>
                                             <div class="progress xs">
                                                 <div class="progress-bar progress-bar-red"
                                                      style="width: 60%"
@@ -231,9 +231,9 @@
                                         <!-- Task item -->
                                         <a href="#">
                                             <h3>
-                            Make beautiful transitions
-                            <small class="pull-right">80%</small>
-                          </h3>
+                                Make beautiful transitions
+                                <small class="pull-right">80%</small>
+                              </h3>
                                             <div class="progress xs">
                                                 <div class="progress-bar progress-bar-yellow"
                                                      style="width: 80%"
@@ -299,16 +299,17 @@
                                 </div>
                                 <div class="pull-right">
                                     <a href="#"
-                                       class="btn btn-default btn-flat">Sign out</a>
+                                       class="btn btn-default btn-flat"
+                                       v-on:click="signOut">退出</a>
                                 </div>
                             </li>
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     <!--<li>
-                        <a href="#"
-                           data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>-->
+                            <a href="#"
+                               data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>-->
                 </ul>
             </div>
     
@@ -317,9 +318,19 @@
 </template>
 
 <script>
-    export default{
-        name:"app-header",
+import { USER_SIGNOUT } from '../../store/common/mutationTypes'
+
+export default {
+    name: "app-header",
+    methods: {
+        signOut(event) {
+            //改变状态
+            this.$store.dispatch(USER_SIGNOUT);
+            this.$router.push("login");
+            return;
+        },
     }
+}
 </script>
 
 <style></style>

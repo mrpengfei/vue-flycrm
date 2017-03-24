@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import RootEle from '../common/rootElement'
 import store from '../store/'
 
+import logHelper from '../common/logHelper'
+
+
 import App from '../App'
 import AppHome from '../views/home/home'
 import AppLogin from '../views/login/login'
@@ -27,7 +30,8 @@ var router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  var isLogin = store.state.User.user && store.state.User.user.EmployeeId > 0;
+  logHelper.log(store.getters.isLogin);
+  var isLogin = store.getters.isLogin;
   if (to.name === 'login' || isLogin) {
     return next();
   }
