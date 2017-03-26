@@ -9,6 +9,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "element-ui": "^1.2.5",
     "express-http-proxy": "^0.11.0",
     "vue": "^2.2.2",
