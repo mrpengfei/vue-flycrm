@@ -13,19 +13,19 @@
                            class="form-control"
                            placeholder="工号"
                            v-model="user.staffId">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
                     <input type="password"
                            class="form-control"
-                           placeholder="Password"
+                           placeholder="密码"
                            v-model="user.password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <button type="submit"
-                                class="btn btn-primary btn-block btn-flat">Sign In</button>
+                                class="btn btn-primary btn-block btn-flat">登陆</button>
                     </div>
                     <!-- /.col -->
                 </div>

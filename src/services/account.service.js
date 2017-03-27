@@ -27,7 +27,7 @@ export default{
     },
 
     getLoginUser(){
-        return JSON.parse(sessionStorage.getItem('user')) || {};
+        return JSON.parse(sessionStorage.getItem('user')) || {user:null};
     },
 
     signOut(){

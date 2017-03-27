@@ -3,7 +3,7 @@
        class="wapper">
     <app-header></app-header>
     <app-sidebar></app-sidebar>
-    <router-view></router-view>
+    <app-maincontent></app-maincontent>
     <Footer></Footer>
   </div>
 </template>
