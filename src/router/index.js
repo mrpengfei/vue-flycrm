@@ -19,6 +19,7 @@ var router = new Router({
       component: App,
       children: [
         { path: '/', component: AppHome, name: 'home', alias: '/home' },
+        { path: '/table', component: AppHome, name: 'table', },
       ],
     },
     {
