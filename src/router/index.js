@@ -9,6 +9,7 @@ import logHelper from '../common/logHelper'
 import App from '../App'
 import AppHome from '../views/home/home'
 import AppLogin from '../views/login/login'
+import AppTable from '../views/table/table'
 
 Vue.use(Router)
 
@@ -19,7 +20,7 @@ var router = new Router({
       component: App,
       children: [
         { path: '/', component: AppHome, name: 'home', alias: '/home' },
-        { path: '/table', component: AppHome, name: 'table', },
+        { path: '/table', component: AppTable, name: 'table', },
       ],
     },
     {

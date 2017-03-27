@@ -3,9 +3,9 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                                    首页
-                                    <small>Version 2.0</small>
-                                  </h1>
+                首页
+                <small>Version 2.0</small>
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="active">Dashboard</li>
@@ -35,12 +35,14 @@
                                 </div>
                                 <div class="form-group">
                                     <button type="button"
-                                            class="btn btn-primary">添加</button>
+                                            class="btn btn-primary"
+                                            @click="add">添加</button>
                                 </div>
                             </form>
                         </div>
                         <div class="box-body">
-                            <table class="fly-table withborder" v-loading="loading">
+                            <fly-table className="fly-table withborder"
+                                   v-loading="loading">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -58,8 +60,19 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </fly-table>
                         </div>
+                        <fly-modal :isShowModal="isShowModal" id="editCompany">
+                            <el-form ref="form" v-model="editCompany" label-width="80px">
+                                <input type="hidden" v-model="editCompany.companyId">
+                                <el-form-item label="公司名称">
+                                    <el-input v-model="editCompany.companyName"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" click="onSubmit">立即创建</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </fly-modal>
                     </div>
                 </div>
             </div>
@@ -78,23 +91,31 @@ export default {
                 companyId: 0,
                 companyName: '',
             },
-            loading:false,
+            loading: false,
+            isShowModal:false,
+            editCompany:{
+                companyId:0,
+                companyName:''
+            },
         };
     },
     methods: {
         query() {
             var vm = this;
-            this.loading=true;
+            this.loading = true;
             organizationService.getCompanyList(this.queryPara)
                 .then(function (data) {
-                    vm.loading=false;
+                    vm.loading = false;
                     if (data.State) {
                         vm.companies = data.Result;
                     }
-                }, function (error) {
-                    vm.loading=false;
+                }).catch(function(error){
+                    vm.loading = false;
                     console.dir(error);
                 });
+        },
+        add(){
+            this.isShowModal=true;
         }
     },
     mounted: function () {
@@ -102,42 +123,3 @@ export default {
     }
 }
 </script>
-<style>
-.form-inline .form-group {
-    margin-right: 10px;
-}
-
-.fly-table {
-    width: 100%;
-}
-
-.fly-table th {
-    background-color: #eef1f6;
-    text-align: center;
-}
-
-.fly-table th,
-.fly-table td {
-    text-overflow: ellipsis;
-    position: relative;
-    vertical-align: middle;
-    height: 40px;
-    padding: 2px 6px;
-}
-
-.fly-table.withborder {
-    border-top: 1px solid #dfe6ec;
-    border-left: 1px solid #dfe6ec;
-}
-
-.fly-table.withborder th,
-.fly-table.withborder td {
-    border-right: 1px solid #dfe6ec;
-    border-bottom: 1px solid #dfe6ec;
-}
-
-.fly-table th.center,
-.fly-table td.center {
-    text-align: center;
-}
-</style>

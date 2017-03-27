@@ -13,7 +13,9 @@ export default{
                 type:'GET',
                 dataType:'json',
                 success:function(data,textStatus,jqXHR){
-                    resolve(data);
+                    setTimeout(function() {
+                        resolve(data);
+                    }, 2000);
                 },
                 error:function(jqXHR,textStatus,errorThrown){
                    reject({

@@ -8,6 +8,7 @@ import store from './store'
 import components from './components/'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import './style.css'
 
 Object.keys(components).forEach(function(value,key,array){
   var item = components[value];
