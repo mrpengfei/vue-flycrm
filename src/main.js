@@ -7,7 +7,7 @@ import router from './router'
 import store from './store'
 import components from './components/'
 import ElementUi from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import '../elementui/theme/index.css'
 import './style.css'
 
 Object.keys(components).forEach(function(value,key,array){

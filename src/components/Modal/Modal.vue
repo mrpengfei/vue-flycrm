@@ -1,47 +1,53 @@
 <template>
-    <div class="hide" :id="id">
-       <div class="modal-root">
-            <slot></slot>
-       </div>
-    </div>
+    <el-dialog :title="title" v-model="isShow" :custom-class="customClass">
+        <slot></slot>
+    </el-dialog>
 </template>
 <script>
     export default{
         name:'fly-modal',
         data(){
             return{
-                layerIndex:0,
+                isShow:this.isShowModal
             };
         },
         props:{
             isShowModal:Boolean,
-            id:String
+            title:String,
+            customClass:{
+                default(){
+                    return 'dialog-autoSize';
+                }
+            },
+            closeBtn:{
+                type:Number,
+                default(){
+                    return 1;
+                }
+            },           
         },
         methods:{
-            showModal(){
-                var vm = this;
-                if(this.isShowModal){
-                    this.layerIndex = layer.open({
-                        type:1,
-                        content:$('#'+vm.id).html(),
-                        end:function(){
-                            vm.isShowModal=false;
-                        }
-                    });
-                }else{
-                    layer.close(this.layerIndex);
-                }
-            }
         },
         watch:{
             isShowModal:function(){
-                this.showModal();
+                this.isShow = this.isShowModal;
+            },
+            isShow:function(){
+                this.$parent.isShowModal=this.isShow;
             }
         },
     }
 </script>
 <style>
-.modal-root{
-    margin: 5px 10px;
+.dialog-autoSize{
+    width: auto !important;
+}
+.dialog-autoSize>.el-dialog__header {
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #eee;
+    padding: 10px 20px;
+}
+.dialog-autoSize>.el-dialog__header>.el-dialog__title{
+    font-weight: normal;
 }
 </style>

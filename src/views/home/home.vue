@@ -34,9 +34,10 @@
                                             v-on:click="query">查询</button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button"
+                                    <!--<button type="button"
                                             class="btn btn-primary"
-                                            @click="add">添加</button>
+                                            @click="showEdit">添加</button>-->
+                                             <el-button type="primary" @click="showEdit">添加</el-button>
                                 </div>
                             </form>
                         </div>
@@ -62,14 +63,15 @@
                                 </tbody>
                             </fly-table>
                         </div>
-                        <fly-modal :isShowModal="isShowModal" id="editCompany">
+                        <fly-modal :isShowModal="isShowModal" title="保存">
                             <el-form ref="form" v-model="editCompany" label-width="80px">
                                 <input type="hidden" v-model="editCompany.companyId">
                                 <el-form-item label="公司名称">
                                     <el-input v-model="editCompany.companyName"></el-input>
                                 </el-form-item>
                                 <el-form-item>
-                                    <el-button type="primary" click="onSubmit">立即创建</el-button>
+                                    <el-button type="primary" @click="onSubmit">保存</el-button>
+                                    <el-button @click="onCancel">取消</el-button>
                                 </el-form-item>
                             </el-form>
                         </fly-modal>
@@ -114,8 +116,14 @@ export default {
                     console.dir(error);
                 });
         },
-        add(){
+        showEdit(){
             this.isShowModal=true;
+        },
+        onCancel(){
+            this.isShowModal=false;
+        },
+        onSubmit(){
+            this.isShowModal=false;
         }
     },
     mounted: function () {
