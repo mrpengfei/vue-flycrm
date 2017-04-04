@@ -10,6 +10,7 @@ import App from '../App'
 import AppHome from '../views/home/home'
 import AppLogin from '../views/login/login'
 import AppTable from '../views/table/table'
+import Organization from '../views/organization'
 
 Vue.use(Router)
 
@@ -20,6 +21,8 @@ var router = new Router({
       component: App,
       children: [
         { path: '/', component: AppHome, name: 'home', alias: '/home' },
+        {path:'/organization/company',component:Organization.Company,name:'organization.company'},        
+        {path:'/organization/department',component:Organization.Department,name:'organization.department'},        
         { path: '/table', component: AppTable, name: 'table', },
       ],
     },
