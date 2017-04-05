@@ -3,9 +3,9 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                            首页
-                            <small>Version 2.0</small>
-                        </h1>
+                                                        首页
+                                                        <small>Version 2.0</small>
+                                                    </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="active">Dashboard</li>
@@ -16,55 +16,62 @@
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <app-list-page :queryFun="queryFun">
-                        <template slot="queryForm"
-                                  scope="prop">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">部门名称</div>
-                                    <input type="text"
-                                           class="form-control"
-                                           placeholder="部门名称"
-                                           v-model="prop.queryPara.departmentName">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">公司</div>
+                                        <select class="form-control"
+                                                v-model="queryPara.companyId">
+                                            <option v-for="item in selectcompanies"
+                                                    :value="item.CompanyId">
+                                                {{item.CompanyName}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </template>
-                        <template slot="table-header">
-                            <tr>
-                                <th>Id</th>
-                                <th>名称</th>
-                                <th>操作</th>
-                            </tr>
-                        </template>
-                        <template slot="table-body"
-                                  scope="prop">
-                            <tr>
-                                <td>{{prop.item.DepartmentId}}</td>
-                                <td>{{prop.item.DepartmentName}}</td>
-                                <td class="center">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">部门名称</div>
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="部门名称"
+                                               v-model="queryPara.departmentName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <button type="button"
-                                            class="btn btn-primary">修改</button>
-                                </td>
-                            </tr>
-                        </template>
-                        <fly-modal :isShowModal="isShowModal"
-                                   title="保存">
-                            <el-form ref="form"
-                                     v-model="editCompany"
-                                     label-width="80px">
-                                <input type="hidden"
-                                       v-model="editCompany.companyId">
-                                <el-form-item label="公司名称">
-                                    <el-input v-model="editCompany.companyName"></el-input>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-button type="primary"
-                                               @click="onSubmit">保存</el-button>
-                                    <el-button @click="onCancel">取消</el-button>
-                                </el-form-item>
-                            </el-form>
-                        </fly-modal>
-                    </app-list-page>
+                                            class="btn btn-primary"
+                                            v-on:click="query">查询</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="box-body">
+                            <fly-table className="fly-table withborder"
+                                       v-loading="loading">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>公司名称</th>
+                                        <th>部门名称</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in listData">
+                                        <td>{{item.DepartmentId}}</td>
+                                        <td>{{item.CompanyName}}</td>
+                                        <td>{{item.DepartmentName}}</td>
+                                        <td class="center">
+                                            <button type="button"
+                                                    class="btn btn-primary">修改</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </fly-table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -79,13 +86,37 @@ export default {
         return {
             queryFun: organizationService.getDepartmentList,
             queryPara: {},
+            selectcompanies: [],
+            loading: false,
+            listData:[],
         };
     },
     methods: {
-
+        query() {
+            var vm = this;
+            this.loading = true;
+            this.queryFun(this.queryPara)
+                .then(function (data) {
+                    vm.loading = false;
+                    if (data.State) {
+                        vm.listData = data.Result;
+                    }
+                }).catch(function (error) {
+                    vm.loading = false;
+                    console.dir(error);
+                });
+        },
     },
     mounted: function () {
-
+        var vm = this;
+        new Promise(function (resovel, reject) {
+            organizationService.getCompanyList().then(function (params) {
+                vm.selectcompanies = params.Result;
+                resovel();
+            })
+        }).then(function (data) {
+            vm.query();
+        });
     }
 }
 </script>

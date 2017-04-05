@@ -5,8 +5,8 @@ export default{
      * @param {object} parameter 
      */
     getCompanyList(parameter){
-        var url = '/daishu/crm/api/organization/company/list?companyName='+parameter.companyName+
-        '&pageSize='+parameter.pageSize+'&pageIndex='+parameter.pageIndex;
+        var url = '/daishu/crm/api/organization/company/list';
+        url = commonUtility.setUrlPara(url,parameter);
 
         return new Promise(function(resolve,reject){
             $.ajax({

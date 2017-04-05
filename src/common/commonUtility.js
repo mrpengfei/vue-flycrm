@@ -1,5 +1,8 @@
 export default {
     setUrlPara: function (url, params) {
+        if(!params){
+            return url;
+        }
         var paraUrl = '';
         Object.keys(params).forEach(function (value, key, array) {
             if (!params[value]) {
